@@ -1,5 +1,6 @@
 package com.fastasyncworldedit.playground.commands;
 
+import com.fastasyncworldedit.core.function.mask.AngleMask;
 import com.fastasyncworldedit.core.function.pattern.Linear3DBlockPattern;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.function.pattern.Pattern;
@@ -12,11 +13,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ChessPatternCommand extends Command {
+public class CheckerBoardPatternCommand extends Command {
 
     private static final Pattern pattern = new Linear3DBlockPattern(new Pattern[]{ BlockTypes.WHITE_WOOL, BlockTypes.BLACK_WOOL }, 2, 2, 2);
-    public ChessPatternCommand() {
-        super("chess", "generate a chess platform", "/chess", new ArrayList<>());
+    public CheckerBoardPatternCommand() {
+        super("checkerboard", "Generate a checkerboard platform", "/checkerboard", new ArrayList<>());
     }
 
     @Override
@@ -26,6 +27,7 @@ public class ChessPatternCommand extends Command {
             actor.runAsyncIfFree(() -> {
                 Region selection = actor.getSelection();
                 try (var editSession = actor.getSession().createEditSession(actor)) {
+                    editSession.setMask(new AngleMask(editSession, 0, 5,true, 1));
                     editSession.setBlocks(selection, pattern);
                 }
             });
