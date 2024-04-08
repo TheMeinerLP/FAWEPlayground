@@ -19,7 +19,7 @@ public class Playground extends JavaPlugin {
     public void onEnable() {
         getSLF4JLogger().warn("THIS PLUGIN DON'T HAVE PERMISSIONS CHECK AND REPRESENT SOME API EXAMPLES OR PROTOTYPING");
         // WorldEdit.getInstance().getEventBus().register(new TrackingEditSessionListener());
-        Bukkit.getCommandMap().register("checkerboard", new CheckerBoardPatternCommand());
+        Bukkit.getCommandMap().register("checkerboard", new CheckerBoardPatternCommand(this));
         WorldEdit.getInstance().getPatternFactory().register(new CheckerboardPatternParser(WorldEdit.getInstance()));
         WorldEdit.getInstance().getMaskFactory().register(new StoneToolMaskParser(WorldEdit.getInstance()));
         PlatformManager platformManager = WorldEdit.getInstance().getPlatformManager();
