@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
     id("java")
@@ -11,13 +12,18 @@ version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
     implementation(platform("com.intellectualsites.bom:bom-newest:1.43")) // Ref: https://github.com/IntellectualSites/bom
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit") { isTransitive = false }
+
+    annotationProcessor("com.fastasyncworldedit:FastAsyncWorldEdit-Libs-Ap:2.9.1")
+    annotationProcessor("com.google.guava:guava:21.0")
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Libs-Ap:2.9.1")
 
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
 }
@@ -49,4 +55,10 @@ bukkit {
     author = "IntellectualSites Team and Contributors"
     main = "com.fastasyncworldedit.playground.Playground"
     apiVersion = "1.18"
+
+    permissions {
+        register("playground.spikebrush") {
+            default = BukkitPluginDescription.Permission.Default.TRUE
+        }
+    }
 }
